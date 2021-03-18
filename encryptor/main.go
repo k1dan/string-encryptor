@@ -6,14 +6,24 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"os"
 )
+
+func getPort() string {
+	addr := os.Getenv("ADDR")
+	if addr == "" {
+		return ":8008"
+	} else {
+		return addr
+	}
+}
 
 func main()  {
 	s := grpc.NewServer()
 	srv := &server.GRPCServer{}
 	proto.RegisterEncryptorServer(s, srv)
 
-	l, err := net.Listen("tcp", ":8080")
+	l, err := net.Listen("tcp", getPort())
 	if err != nil {
 		log.Fatal(err)
 	}
