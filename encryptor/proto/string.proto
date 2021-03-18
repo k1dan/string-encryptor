@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "encrypt/proto";
+
+package proto;
+
+service Encryptor {
+  rpc EncryptString(EncryptRequest) returns (EncryptReply) {}
+}
+
+message EncryptRequest {
+  repeated string strings = 1;
+}
+
+message EncryptReply {
+  bool encrypted = 1;
+  repeated string strings = 2;
+}
